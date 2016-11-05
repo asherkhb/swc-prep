@@ -1,0 +1,184 @@
+## Navigate to Project Overview Page
+http://swcarpentry.github.io/r-novice-inflammation/
+[NOTE: We aren't using the inflammation data, we'll be using gapminder. However, the topics in this will be covered.]
+
+Order of Topics:
+  1. Introduction to RStudio
+  2. Analyzing [Patient] Data
+  3. Data Structures & Types
+  4. Factors
+  5. Addressing Data
+  6. Pushing to GitHub
+
+## 1. Introduction to RStudio
+1.1 Make sure everyone has RStudio Downloaded
+1.2 Open RStudio
+    File -> New Project -> New Directory (or existing) -> Empty Project
+    Enter name, set parent directory, and choose 'Create a git repository'
+1.3 Overview of Interface
+    1.3.1 Console
+          Show an output demo
+            > "Hello, world!"
+            [1] "Hello, world!"
+            > 2 + 3
+            [1] 5
+            > 5 *  [NOTE: This shows an incomplete entry]
+            + 3
+            [1] 15
+            > my_first_variable <- 2
+            > my_first_variable [NOTE: At this point show Environment]
+            [1] 2
+            > my_first_variable > 10
+            [1] FALSE
+    1.3.2 Script
+          Create new script
+          Create a basic demo
+            x <- c(1,2,3)
+            y <- c(3,2,1)
+            plot(x, y) [NOTE: At this point, show the Plots viewer]
+          Demo getting help [NOTE: Show how this switches to 'Help' viewer]
+            help(plot)
+            ?c
+          Save Script
+    1.3.3 Git Tab (might need to set up via Tools -> Global Options)
+          Discuss how Git tab works.
+          Select all files, show how status changes to [A]
+          Create a commit
+          Show Review Changes pane. - commit
+          Show Git "History"
+    1.3.4 History
+          Show 'History' tab
+          Point out ability to send commands to console & source
+            Demo sending to 'my_first_variable' assignment to script - occurs where cursor is
+            Create some comments in the scripts, re-save (point out how it's red, then not after save)
+            CREATE ANOTHER COMMIT
+            Show "History"
+          Point out ability to save/load histories
+          Point out ability to remove specific history items & clear history
+            Remove history from error calculating 5 * 3
+            Save history
+            Clear history
+            Load history
+
+## 2. Analyzing Patient Data (Use RStudio Script on other monitor for reference)
+2.1 Prep for next step:
+    - clean & save history, then clear
+    - make sure script is saved
+    - clear environment
+2.2 Get Data & confirm got right version (from shell)
+    $ cd <path/to/workdir>
+    $ wget https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv
+    --> [NOTE: PUT URL into Etherpad at this point]
+    $ head gapminder-FiveYearData.csv
+2.3 Load data.
+    > ?read.csv
+    Script:
+      # Load our dataset.
+      read.csv(file="gapminder-FiveYearData.csv", header=TRUE)
+      [NOTE: This will print out a bunch of stuff. NOT what we want!]
+    Modify Script:
+      gapminder <- read.csv(file="gapminder-FiveYearData.csv", header=TRUE)
+    Investigate our data.
+      --> head, class, dim
+2.4 Access Data
+    Single values, sets, slices, combinations
+2.5 Exercise #1: '-' Notation
+    What does gapminder[,-4] do? (hint, use head() to prevent lots of output)
+    --> Answer: Removes column 4
+    How could you use this "-" notation to remove Afganistan?
+    --> Answer: head(gapminder[-1:-12])
+2.6 Calculate Basic Statistics
+    min, max, mean, sd
+2.7 EXERCISE #2: New Dataframe w/ Slicing
+    Create a new dataframe that contains only country names, years, and life expectancy.
+    Use this to calculate the minimum and maximum life expectancy
+2.8 Save script, make commit.
+
+## 3. Data Types & Structures ("Variables")
+3.1 Data Types
+    Examining data types
+    Examples
+3.2 Data Structures
+    Types & About - homogeneous vs heterogenenous
+    Creating Vectors, Lists
+    --> Examples
+    Creating Matrix
+    --> Examples
+    Creating Data Frames
+    --> Examples
+3.3 EXERCISE #3: Examining our gapminder dataframe.
+  Q1: Is our dataframe a 'list' type?
+  Q2: How do you get all your column names?
+  Q3: How would you determine what the class/type of our columns are? What are they?
+3.3 Prep for Next Step
+    Save
+    Create Commit
+    Clean up environment
+    Create new script for next section
+
+# 4. Factors
+4.1 About factors (what & why)
+4.2 Creating factors
+    Unordered
+    Ordered
+4.3 Re-defining/removing factors
+    Example
+4.4 EXERCISE #4: Gapminder Data & Factors
+    Q1: Which columns are factors? (HINT: Use str(). Don't forget to reload the dataset since we cleared it!)
+    Q2: What are the levels in these columns? How many correspond to each level? (hint: use summary())
+4.5 Prep for Next Step
+    Save
+    Create Commit
+    Clean Up Environment
+    Create new Script
+
+# 5. Accessing Data, Expanded
+5.1 Ways to Access Data, overview.
+5.2 Methods to access data
+    4.2.1 By Index
+    4.2.2 By Name
+    4.2.3 By Logical Vector
+5.3 Indexing & Assignment
+    Case Example
+5.4 FINAL EXERCISE: Plotting Life Expectancies
+    Create two boxplots
+      1. Continents & their expected life expectancies for any given year
+      2. Years & associated life expectancies.
+    (HINT #1: Boxplots can be made using: plot(x=factors, y=values)
+    (HINT #2: Use help (or ?) to figure out how to add a title & axix labels)
+5.5 Prep for Next Step
+    Save
+    Create Commit
+    Clean Up Environment
+    Create new Script
+
+# 6. Set up & Push to GitHub
+Set up w/ GitHub
+  Create RSA, add to GitHub Account if needed
+Select Shell
+if necessary, use:
+  $ git config --global user.email "github-signup-email"
+  $ git config --global user.name "github-username"
+set up origin
+  on github, make new project
+  Follow instructions provided by github using shell
+  $ git remote add origin <url>
+  $ <<maybe>> git config remote.origin.url git@github.com:username/repo.git
+  $ git push -u origin master
+
+You can now push/pull from within the RStudio. Lets test...
+
+Create a README.md
+- New Text File
+- Save as README.md
+- Type in some markdown.
+
+# Software Carpentry: R
+* University of Arizona, Tucson, AZ
+* 2016-11-05
+* Day 1 R Code
+
+- Create a commit
+- SHOW HISTORY (difference between head, & origin)
+- Push
+- Show History (now synced)!
